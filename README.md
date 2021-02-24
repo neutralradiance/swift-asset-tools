@@ -1,3 +1,3 @@
 # AssetTools
 
-An assets generator and reader for Swift.
+A tool for Xcode asset generation and inspection for Swift.

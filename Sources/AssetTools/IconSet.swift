@@ -37,7 +37,7 @@ public struct IconSet {
           packing: pixels,
           size: size,
           layout:
-            .init(format: .rgba8(palette: [], fill: .none)
+          .init(format: .rgba8(palette: [], fill: .none)
           )
         )
       debugPrint("Created icon named: \(name)")
@@ -51,26 +51,6 @@ extension IconSet: AssetProtocol {
   public struct Contents: AssetContents {
     public var images: [Image] = [
       // MARK: iPhone
-//			.init(
-//				filename: "icon_16x16.png",
-//				size: "16x16"
-//				),
-//			.init(
-//				filename: "icon_32x32.png",
-//				size: "32x32"
-//				),
-//			.init(
-//				filename: "icon_128x128.png",
-//				size: "128x128"
-//				),
-//			.init(
-//				filename: "icon_256x256.png",
-//				size: "256x256"
-//				),
-//			.init(
-//				filename: "icon_512x512.png",
-//				size: "512x512"
-//				),
       .image(of: 40, for: .iphone, scale: 2),
       .image(of: 60, for: .iphone, scale: 3),
       .image(of: 29, for: .iphone),
@@ -105,11 +85,11 @@ extension IconSet: AssetProtocol {
 
   public struct Image: Hashable, Encodable {
     var filename: String? = .none,
-				idiom: String = AssetIdiom.universal.rawValue,
-				role: String? = .none,
-				scale: String = "1x",
-				size: String,
-				subtype: String? = .none
+        idiom: String = AssetIdiom.universal.rawValue,
+        role: String? = .none,
+        scale: String = "1x",
+        size: String,
+        subtype: String? = .none
     public static func image(
       of size: Int,
       for idiom: AssetIdiom,
@@ -199,45 +179,47 @@ extension IconSet: AssetProtocol {
 
 #if canImport(SwiftUI)
   import SwiftUI
-#if os(iOS)
-extension PNG.Data.Rectangular {
-  func compress(
-    path:String,
-    level:Int = 9,
-    hint:Int = 1 << 15
-  ) throws {
-      try iOSByteStreamDestination.open(path: path) {
-        try self.compress(stream: &$0, level: level, hint: hint)
+  #if os(iOS)
+    extension PNG.Data.Rectangular {
+      func compress(
+        path: String,
+        level: Int = 9,
+        hint: Int = 1 << 15
+      ) throws {
+        try iOSByteStreamDestination.open(path: path) {
+          try self.compress(stream: &$0, level: level, hint: hint)
+        }
       }
-  }
-}
-struct iOSByteStreamDestination: _PNGBytestreamDestination {
-  let descriptor: UnsafeMutablePointer<FILE>
-  public static func open<R>(
-    path:String,
-    _ body:(inout Self) throws -> R
-  ) rethrows -> R? {
-      guard
-        let descriptor: UnsafeMutablePointer<FILE> = fopen(path, "wb")
-      else { return nil }
-      var file: Self = .init(descriptor: descriptor)
-      defer { fclose(file.descriptor) }
-      return try body(&file)
-  }
-  mutating func write(_ buffer: [UInt8]) -> Void? {
-    let count:Int = buffer.withUnsafeBufferPointer {
-        fwrite(
-          $0.baseAddress,
-          MemoryLayout<UInt8>.stride,
-          $0.count, self.descriptor
-        )
     }
-    guard count == buffer.count
-    else { return nil }
-    return ()
-  }
-}
-#endif
+
+    struct iOSByteStreamDestination: _PNGBytestreamDestination {
+      let descriptor: UnsafeMutablePointer<FILE>
+      public static func open<R>(
+        path: String,
+        _ body: (inout Self) throws -> R
+      ) rethrows -> R? {
+        guard
+          let descriptor: UnsafeMutablePointer<FILE> = fopen(path, "wb")
+        else { return nil }
+        var file: Self = .init(descriptor: descriptor)
+        defer { fclose(file.descriptor) }
+        return try body(&file)
+      }
+
+      mutating func write(_ buffer: [UInt8]) -> Void? {
+        let count: Int = buffer.withUnsafeBufferPointer {
+          fwrite(
+            $0.baseAddress,
+            MemoryLayout<UInt8>.stride,
+            $0.count, self.descriptor
+          )
+        }
+        guard count == buffer.count
+        else { return nil }
+        return ()
+      }
+    }
+  #endif
   @available(iOS 13.0, macOS 10.13, *)
   public extension IconSet {
     static func accent() -> Self? {
@@ -246,6 +228,7 @@ struct iOSByteStreamDestination: _PNGBytestreamDestination {
       else { return nil }
       return Self(color: accentColor)
     }
+
     /// Replaces an `AppIcon.appiconset` folder in a bundle's `Assets.xcassets`.
     func replace(in bundle: Bundle) throws {
       guard

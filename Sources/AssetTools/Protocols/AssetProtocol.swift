@@ -8,7 +8,7 @@ public protocol AssetProtocol {
   func write(to path: String, with name: String) throws
 }
 
-extension AssetProtocol {
-  public static var encoder: JSONEncoder { JSONEncoder() }
-  public static var decoder: JSONDecoder { JSONDecoder() }
+public extension AssetProtocol {
+  static var encoder: JSONEncoder { JSONEncoder() }
+  static var decoder: JSONDecoder { JSONDecoder() }
 }

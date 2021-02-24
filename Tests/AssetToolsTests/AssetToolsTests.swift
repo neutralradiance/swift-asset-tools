@@ -7,7 +7,7 @@ final class AssetToolsTests: XCTestCase {
     let iconSet =
       IconSet(
         color:
-          Light(red: 0, green: 150, blue: 255, alpha: 1)
+        Light(red: 0, green: 150, blue: 255, alpha: 1)
       )
 //    try iconSet?.write(to: "")
   }
