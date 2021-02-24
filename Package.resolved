@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Files",
+        "repositoryURL": "https://github.com/JohnSundell/Files",
+        "state": {
+          "branch": "master",
+          "revision": "d273b5b7025d386feef79ef6bad7de762e106eaf",
+          "version": null
+        }
+      },
+      {
+        "package": "PNG",
+        "repositoryURL": "https://github.com/kelvin13/png",
+        "state": {
+          "branch": "master",
+          "revision": "0800c123d29d132cab70a1d492fb18a7e4007380",
+          "version": null
+        }
+      },
+      {
+        "package": "Light",
+        "repositoryURL": "https://github.com/neutralradiance/swift-light",
+        "state": {
+          "branch": "main",
+          "revision": "8d374b56993f935cfb24c8a00bbbbbbfab98e681",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
